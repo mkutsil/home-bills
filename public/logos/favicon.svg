@@ -1,0 +1,55 @@
+
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect
+        x="8"
+        y="16"
+        width="112"
+        height="104"
+        rx="20"
+        fill="#F4F9FF"
+        stroke="#1E6FD9"
+        stroke-width="6"
+    />
+
+    <path
+        d="M24 48L64 20L104 48"
+        stroke="#1E6FD9"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+
+    <path
+        d="M28 64C28 58 36 52 36 52C36 52 44 58 44 64C44 70 40 74 36 74C32 74 28 70 28 64Z"
+        fill="#3BA6FF"
+    />
+
+    <path d="M60 58L52 74H62L56 90L72 66H62L68 58H60Z" fill="#FFC107" />
+
+    <path
+        d="M88 64 
+       C88 50, 98 46, 100 54
+       C102 60, 98 68, 100 74
+       C98 70, 92 66, 88 64Z"
+        fill="url(#gasGradient)"
+    />
+
+    <defs>
+        <linearGradient
+            id="gasGradient"
+            x1="88"
+            y1="46"
+            x2="100"
+            y2="74"
+            gradientUnits="userSpaceOnUse"
+        >
+            <stop stop-color="#FF6B35" />
+            <stop offset="1" stop-color="#FFCD3C" />
+        </linearGradient>
+    </defs>
+
+    <rect x="38" y="96" width="10" height="12" rx="3" fill="#9ED36A" />
+    <rect x="54" y="92" width="10" height="16" rx="3" fill="#6CCF5F" />
+    <rect x="70" y="88" width="10" height="20" rx="3" fill="#3DBE5A" />
+    <rect x="86" y="84" width="10" height="24" rx="3" fill="#22A958" />
+</svg>

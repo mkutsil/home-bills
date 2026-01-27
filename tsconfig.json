@@ -1,7 +1,31 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+    "compilerOptions": {
+        "target": "es2017", // Modern JS target for faster builds
+        "module": "ESNext", // Use ES modules for Vite/Webpack
+        "lib": ["DOM", "DOM.Iterable", "ESNext"], // Include types for DOM and modern JS features
+        "jsx": "react-jsx", // New JSX transform (React 17+)
+        "strict": true, // Enable all strict type-checking options
+        "noImplicitAny": true, // Disallow 'any' type unless explicitly defined
+        "moduleResolution": "node", // Module resolution like Node.js
+        "esModuleInterop": true, // Enable interoperability between CommonJS and ES modules
+        "allowSyntheticDefaultImports": true, // Allow default imports from modules without default export
+        "forceConsistentCasingInFileNames": true, // Ensure consistent file name casing across OS
+        "skipLibCheck": true, // Skip type checking of declaration files in node_modules
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "outDir": "./dist" // Output directory for compiled JS
+    },
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS", // Required for ts-node execution in Node.js
+            "baseUrl": ".",
+            "paths": {
+                "@/*": ["src/*"]
+            }
+        }
+    },
+    "include": ["src", "config/jest/setupTest.ts"],
+    "exclude": ["node_modules", "dist"]
 }
