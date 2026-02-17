@@ -1,4 +1,4 @@
-import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
+import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import DeleteButton from '@/shared/ui/DeleteButton/DeleteButton';
 import { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router';
@@ -26,6 +26,12 @@ export const AddBillsPage = () => {
         setGasValue(Number(e.target.value));
     };
 
+    const clearInputValues = () => {
+        setWaterValue('');
+        setElectricityValue('');
+        setGasValue('');
+    };
+
     const handleSaveClick = () => {
         let data = {
             water: waterValue,
@@ -33,15 +39,12 @@ export const AddBillsPage = () => {
             gas: gasValue,
         };
         localStorage.setItem('billsValue', JSON.stringify(data));
-
-        // setBillsValue(inputValue);
-        // setBillsValue(inputValue);
-        // handleWaterChange(0);
-        // localStorage.setItem('billsValue', inputValue);
+        clearInputValues();
     };
 
     const handleDeleteBills = () => {
         localStorage.removeItem('billsValue');
+        clearInputValues();
     };
 
     // 💧 Water ⚡ Electricity 🔥 Gas

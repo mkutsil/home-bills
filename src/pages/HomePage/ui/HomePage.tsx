@@ -1,5 +1,4 @@
-import { AppRouter } from '@/app/providers/router';
-import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
+import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { Link } from 'react-router';
 
 export const HomePage = () => {

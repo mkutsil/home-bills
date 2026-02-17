@@ -2,21 +2,10 @@ import { AddBillsPage } from '../../../pages/AddBillsPage';
 import { HomePage } from '../../../pages/HomePage';
 import { NotFoundPage } from '../../../pages/NotFoundPage';
 import type { RouteProps } from 'react-router-dom';
+import { AppRouters, RoutePath } from './routerPath';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
-};
-
-export enum AppRouters {
-    HOME = 'home',
-    ADD_BILLS = 'add_bills',
-    NOT_FOUND = 'not_found',
-}
-
-export const RoutePath: Record<AppRouters, string> = {
-    [AppRouters.HOME]: '/',
-    [AppRouters.ADD_BILLS]: '/add-bills',
-    [AppRouters.NOT_FOUND]: '*',
 };
 
 export const routerConfig: Record<AppRouters, AppRoutesProps> = {
