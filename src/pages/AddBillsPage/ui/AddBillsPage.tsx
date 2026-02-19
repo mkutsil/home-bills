@@ -2,6 +2,7 @@ import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import DeleteButton from '@/shared/ui/DeleteButton/DeleteButton';
 import { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router';
+import './AddBillsPage.css';
 
 export const AddBillsPage = () => {
     const billsValue = localStorage.getItem('billsValue');
@@ -49,7 +50,7 @@ export const AddBillsPage = () => {
 
     // 💧 Water ⚡ Electricity 🔥 Gas
     return (
-        <>
+        <div className="add-bills-page-container">
             <h1>Введіть показники лічильника</h1>
             <p>Світло</p>
             <input type="number" value={waterValue} onChange={handleWaterChange} />
@@ -63,6 +64,6 @@ export const AddBillsPage = () => {
             <Link to={RoutePath.home}>
                 <p>на головну</p>
             </Link>
-        </>
+        </div>
     );
 };

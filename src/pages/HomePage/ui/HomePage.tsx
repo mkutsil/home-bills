@@ -1,5 +1,6 @@
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { Link } from 'react-router';
+import './HomePage.css';
 
 export const HomePage = () => {
     const billsValue = localStorage.getItem('billsValue');
@@ -9,7 +10,7 @@ export const HomePage = () => {
     const gas = billsValue ? JSON.parse(billsValue).gas : 'No data';
 
     return (
-        <>
+        <div className="home-page-container">
             <h1>показники</h1>
 
             <p>💧 Water - {water}</p>
@@ -19,6 +20,6 @@ export const HomePage = () => {
             <Link to={RoutePath.add_bills}>
                 <p>додати</p>
             </Link>
-        </>
+        </div>
     );
 };
