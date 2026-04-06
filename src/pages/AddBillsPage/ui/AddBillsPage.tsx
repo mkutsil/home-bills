@@ -2,6 +2,8 @@ import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import DeleteButton from '@/shared/ui/DeleteButton/DeleteButton';
 import { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router';
+import './AddBillsPage.css';
+import Input from '@/shared/ui/Input/Input';
 
 export const AddBillsPage = () => {
     const billsValue = localStorage.getItem('billsValue');
@@ -49,20 +51,23 @@ export const AddBillsPage = () => {
 
     // 💧 Water ⚡ Electricity 🔥 Gas
     return (
-        <>
+        <div className="add-bills-page-container">
             <h1>Введіть показники лічильника</h1>
-            <p>Світло</p>
-            <input type="number" value={waterValue} onChange={handleWaterChange} />
-            <p>Газ</p>
-            <input type="number" value={electricityValue} onChange={handleElectricityChange} />
-            <p>Вода</p>
-            <input type="number" value={gasValue} onChange={handleGasChange} />
+
+            <Input
+                placeholder="⚡ Electricity"
+                onChange={setElectricityValue}
+                value={electricityValue}
+            />
+            <Input placeholder="🔥 Gas" onChange={setGasValue} value={gasValue} />
+            <Input placeholder="💧 Water" onChange={setWaterValue} value={waterValue} />
+
             <button onClick={handleSaveClick}>Зберегти</button>
             {/* {billsValue && <p>Збережені показники: {billsValue}</p>} */}
             <DeleteButton onClick={handleDeleteBills} />
             <Link to={RoutePath.home}>
                 <p>на головну</p>
             </Link>
-        </>
+        </div>
     );
 };
