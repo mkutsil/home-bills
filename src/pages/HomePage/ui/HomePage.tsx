@@ -4,6 +4,9 @@ import './HomePage.css';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
 import { useEffect } from 'react';
+import { RootState } from '@/app/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrement, increment } from '@/features/counter/slice/counterSlice';
 
 export const HomePage = async () => {
     const billsValue = localStorage.getItem('billsValue');
@@ -36,16 +39,23 @@ export const HomePage = async () => {
 
         create();
     }, [water, electricity, gas]);
+
+    const count = useSelector((state: RootState) => state.counter.value);
+
+    const dispatch = useDispatch();
     return (
         <div className="home-page-container">
             <h1>показники</h1>
+            <h2>{count}</h2>
+            <button onClick={() => dispatch(increment())}>+</button>
 
+            <button onClick={() => dispatch(decrement())}>-</button>
             <p>💧 Water - {water}</p>
             <p>⚡ Electricity - {electricity}</p>
             <p>🔥 Gas - {gas}</p>
 
             <Link to={RoutePath.add_bills}>
-                <p>додати</p>
+                <p>дoдати</p>
             </Link>
         </div>
     );
