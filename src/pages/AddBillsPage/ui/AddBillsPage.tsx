@@ -1,9 +1,11 @@
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import DeleteButton from '@/shared/ui/DeleteButton/DeleteButton';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { Link } from 'react-router';
 import './AddBillsPage.css';
 import Input from '@/shared/ui/Input/Input';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db } from '@/app/firebase/config';
 
 export const AddBillsPage = () => {
     const billsValue = localStorage.getItem('billsValue');
@@ -41,7 +43,31 @@ export const AddBillsPage = () => {
             gas: gasValue,
         };
         localStorage.setItem('billsValue', JSON.stringify(data));
-        clearInputValues();
+        // clearInputValues();
+
+        const billsData = [
+            {
+                title: 'Water',
+                value: data.water,
+            },
+            {
+                title: 'Electricity',
+                value: data.electricity,
+            },
+            {
+                title: 'Gas',
+                value: data.gas,
+            },
+        ];
+
+        const create = async () => {
+            await addDoc(collection(db, 'bills'), {
+                billsData,
+                createdAt: Date.now(),
+            });
+        };
+
+        create();
     };
 
     const handleDeleteBills = () => {
