@@ -11,11 +11,11 @@
         "allowSyntheticDefaultImports": true, // Allow default imports from modules without default export
         "forceConsistentCasingInFileNames": true, // Ensure consistent file name casing across OS
         "skipLibCheck": true, // Skip type checking of declaration files in node_modules
-        "baseUrl": ".",
+        "ignoreDeprecations": "6.0", // Silence deprecated baseUrl warning in TS 7.0
+        "baseUrl": "./",
         "paths": {
             "@/*": ["src/*"]
-        },
-        "outDir": "./dist" // Output directory for compiled JS
+        }
     },
     "ts-node": {
         "compilerOptions": {

@@ -4,12 +4,22 @@ import './HomePage.css';
 import { RootState } from '@/app/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrement, increment } from '@/features/counter/slice/counterSlice';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import DeleteButton from '@/shared/ui/DeleteButton/DeleteButton';
+
+type Bill = {
+    id: string;
+    month: string;
+    water: number;
+    electricity: number;
+    gas: number;
+    createdAt: number;
+};
 
 export const HomePage = () => {
-    let water, electricity, gas;
+    const [bills, setBills] = useState<Bill[]>([]);
 
     const count = useSelector((state: RootState) => state.counter.value);
 
@@ -19,26 +29,20 @@ export const HomePage = () => {
         const fetchBills = async () => {
             const snapshot = await getDocs(collection(db, 'bills'));
 
-            const bills = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-
-            console.log(bills);
-
-            bills[0].billsData.forEach((bill: { title: string; value: number }) => {
-                if (bill.title === 'Water') {
-                    water = bill.value;
-                } else if (bill.title === 'Electricity') {
-                    electricity = bill.value;
-                } else if (bill.title === 'Gas') {
-                    gas = bill.value;
-                }
-            });
+            setBills(
+                snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                })) as Bill[]
+            );
         };
 
         fetchBills();
-    }, []);
+    }, [bills]);
+
+    const handleDeleteBills = async (id: string) => {
+        await deleteDoc(doc(db, 'bills', id));
+    };
     return (
         <div className="home-page-container">
             <h1>показники</h1>
@@ -46,9 +50,16 @@ export const HomePage = () => {
             <button onClick={() => dispatch(increment())}>+</button>
 
             <button onClick={() => dispatch(decrement())}>-</button>
-            <p>💧 Water - {water}</p>
-            <p>⚡ Electricity - {electricity}</p>
-            <p>🔥 Gas - {gas}</p>
+            {bills &&
+                bills.map(bill => (
+                    <div key={bill.id}>
+                        <p>💧 Water - {bill.water}</p>
+                        <p>⚡ Electricity - {bill.electricity}</p>
+                        <p>🔥 Gas - {bill.gas}</p>
+                        <p>{new Date(bill.createdAt).toLocaleString('uk-UA')}</p>
+                        <DeleteButton onClick={() => handleDeleteBills(bill.id)} />
+                    </div>
+                ))}
 
             <Link to={RoutePath.add_bills}>
                 <p>дoдати</p>
