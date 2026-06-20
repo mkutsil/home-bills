@@ -14,16 +14,11 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
-        },
-        "outDir": "./dist" // Output directory for compiled JS
+        }
     },
     "ts-node": {
         "compilerOptions": {
-            "module": "CommonJS", // Required for ts-node execution in Node.js
-            "baseUrl": ".",
-            "paths": {
-                "@/*": ["src/*"]
-            }
+            "module": "CommonJS" // Required for ts-node execution in Node.js
         }
     },
     "include": ["src", "config/jest/setupTest.ts"],
