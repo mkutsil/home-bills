@@ -1,3 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import './NotFoundPage.css';
-export const NotFoundPage = () => (_jsxs(_Fragment, { children: [_jsxs("div", { className: "planet", children: [_jsx("div", { className: "inner", children: _jsx("div", { className: "surface" }) }), _jsx("div", { className: "ring" }), _jsx("div", { className: "moon" }), _jsx("span", { children: "4" }), _jsx("span", { children: "4" }), _jsx("div", { className: "stars s1" }), _jsx("div", { className: "stars s2" }), _jsx("div", { className: "stars s3" }), _jsx("div", { className: "stars s4" })] }), _jsx("p", { className: "alt", children: "404" }), _jsx("p", { className: "info", children: "Lost in space?" })] }));
