@@ -8,6 +8,15 @@ import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
 import { useEffect, useState } from 'react';
 import DeleteButton from '@/shared/ui/DeleteButton/DeleteButton';
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 
 type Bill = {
     id: string;
@@ -52,13 +61,25 @@ export const HomePage = () => {
             <button onClick={() => dispatch(decrement())}>-</button>
             {bills &&
                 bills.map(bill => (
-                    <div key={bill.id}>
-                        <p>💧 Water - {bill.water}</p>
-                        <p>⚡ Electricity - {bill.electricity}</p>
-                        <p>🔥 Gas - {bill.gas}</p>
-                        <p>{new Date(bill.createdAt).toLocaleString('uk-UA')}</p>
-                        <DeleteButton onClick={() => handleDeleteBills(bill.id)} />
-                    </div>
+                    <Card className="w-lg mb-4" key={bill.id}>
+                        <CardHeader>
+                            <CardTitle>
+                                {new Date(bill.createdAt).toLocaleString('uk-UA')}
+                            </CardTitle>
+                            <CardDescription>Bills</CardDescription>
+                            <CardAction>
+                                <DeleteButton onClick={() => handleDeleteBills(bill.id)} />
+                            </CardAction>
+                        </CardHeader>
+                        <CardContent>
+                            <p>💧 Water - {bill.water}</p>
+                            <p>⚡ Electricity - {bill.electricity}</p>
+                            <p>🔥 Gas - {bill.gas}</p>
+                        </CardContent>
+                        <CardFooter>
+                            <p>Card Footer</p>
+                        </CardFooter>
+                    </Card>
                 ))}
 
             <Link to={RoutePath.add_bills}>
