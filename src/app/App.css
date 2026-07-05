@@ -1,0 +1,77 @@
+body {
+    background: linear-gradient(125deg, #00103a 0%, #3e5f77 100%);
+    position: relative;
+}
+.sky-container {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    transform: rotateZ(45deg);
+    pointer-events: none;
+    z-index: 960;
+}
+
+.star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 1px;
+    background: linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0));
+    filter: drop-shadow(0 0 5px #2557bb);
+    animation:
+        tail 3000ms ease-in-out infinite,
+        shooting 3000ms ease-in-out infinite;
+}
+
+.star::before,
+.star::after {
+    position: absolute;
+    content: '';
+    top: calc(100% - 1px);
+    right: 0;
+    height: 2px;
+    background: linear-gradient(-45deg, rgba(0, 0, 255, 0), #5f91ff, rgba(0, 0, 255, 0));
+    border-radius: 100%;
+    transform: translateX(50%) rotateZ(45deg);
+    animation: shining 3000ms ease-in-out infinite;
+}
+
+.star::after {
+    transform: translateX(50%) rotateZ(-45deg);
+}
+
+/* Animations */
+@keyframes tail {
+    0% {
+        width: 0;
+    }
+
+    30% {
+        width: 100px;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes shining {
+    0% {
+        width: 0;
+    }
+    50% {
+        width: 30px;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes shooting {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(320px);
+    }
+}
