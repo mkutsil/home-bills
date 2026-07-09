@@ -2,7 +2,7 @@ import './App.css';
 import { AppRouter } from './providers/router';
 function App() {
     return (
-        <>
+        <div className="dark">
             <AppRouter />
             <div className="sky-container">
                 {Array.from({ length: 10 }).map((_, i) => (
@@ -17,7 +17,7 @@ function App() {
                     />
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 
