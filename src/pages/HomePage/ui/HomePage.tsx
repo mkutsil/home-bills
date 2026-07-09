@@ -20,7 +20,7 @@ export const HomePage = () => {
         };
 
         fetchBills();
-    }, [bills]);
+    }, []);
 
     return <HomeCard bill={bills[0]} />;
 };

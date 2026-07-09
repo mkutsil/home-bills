@@ -3,6 +3,7 @@ import { HomePage } from '../../../pages/HomePage';
 import { NotFoundPage } from '../../../pages/NotFoundPage';
 import type { RouteProps } from 'react-router-dom';
 import { AppRouters, RoutePath } from './routerPath';
+import { Tariffs } from '@/pages/Tariffs/ui/Tariffs';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -16,6 +17,10 @@ export const routerConfig: Record<AppRouters, AppRoutesProps> = {
     [AppRouters.ADD_BILLS]: {
         path: RoutePath.add_bills,
         element: <AddBillsPage />,
+    },
+    [AppRouters.TARIFFS]: {
+        path: RoutePath.tariffs,
+        element: <Tariffs />,
     },
     [AppRouters.NOT_FOUND]: {
         path: RoutePath.not_found,
