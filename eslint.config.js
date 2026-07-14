@@ -38,7 +38,7 @@ export default [
         rules: {
             ...pluginReact.configs.flat.recommended.rules,
 
-            'unused-imports/no-unused-imports': 'warn',
+            'unused-imports/no-unused-imports': 'error',
             'unused-imports/no-unused-vars': [
                 'warn',
                 {
@@ -71,7 +71,7 @@ export default [
             eqeqeq: ['error', 'always'],
             'no-console': ['warn', { allow: ['warn', 'error'] }],
             'no-unused-vars': 'off',
-            '@typescript-eslint/no-unused-vars': ['warn'],
+            '@typescript-eslint/no-unused-vars': 'off',
 
             // 🔴 React
             'react/react-in-jsx-scope': 'off',

@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-// import { toast } from 'sonner';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -12,35 +11,18 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '@/app/firebase/config';
 import { useNavigate } from 'react-router';
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
+import { createBills } from '../api/createBill';
+import { addBillsFormSchema } from './schema';
 
 export const AddBillsPage = () => {
     const navigate = useNavigate();
-    const formSchema = z.object({
-        electricity: z
-            .string()
-            .min(1, 'Electricity must be at least 1 character.')
-            .max(10, 'Electricity must be at most 10 characters.')
-            .regex(/^[0-9]+$/, 'Electricity can only contain numbers.'),
-        water: z
-            .string()
-            .min(1, 'Water must be at least 1 character.')
-            .max(10, 'Water must be at most 10 characters.')
-            .regex(/^[0-9]+$/, 'Water can only contain numbers.'),
-        gas: z
-            .string()
-            .min(1, 'Gas must be at least 1 character.')
-            .max(10, 'Gas must be at most 10 characters.')
-            .regex(/^[0-9]+$/, 'Gas can only contain numbers.'),
-    });
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof addBillsFormSchema>>({
+        resolver: zodResolver(addBillsFormSchema),
         defaultValues: {
             electricity: '',
             water: '',
@@ -48,22 +30,8 @@ export const AddBillsPage = () => {
         },
     });
 
-    function onSubmit(data: z.infer<typeof formSchema>) {
-        const create = async () => {
-            const now = new Date();
-
-            const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-
-            await addDoc(collection(db, 'bills'), {
-                month,
-                water: Number(data.water),
-                electricity: Number(data.electricity),
-                gas: Number(data.gas),
-                createdAt: Date.now(),
-            });
-        };
-
-        create();
+    function onSubmit(data: z.infer<typeof addBillsFormSchema>) {
+        createBills({ data });
         form.reset();
         navigate(RoutePath.home, { replace: true });
     }
