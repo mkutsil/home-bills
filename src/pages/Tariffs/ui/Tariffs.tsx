@@ -30,7 +30,13 @@ export const Tariffs = () => {
     }
 
     useEffect(() => {
-        getTariffs({ form });
+        getTariffs().then(tariffs => {
+            form.reset({
+                electricity: tariffs?.electricity.toString() || '',
+                water: tariffs?.water.toString() || '',
+                gas: tariffs?.gas.toString() || '',
+            });
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

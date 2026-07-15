@@ -6,14 +6,15 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BillsCard } from '@/widgets/BillsCard/BillsCard';
 import { Bill } from '../../types/Bill';
+import { BillCalculation } from '@/shared/lib/calculateBill';
 
 interface HomeCardProps {
     bill: Bill;
+    calculateBill: BillCalculation | null;
 }
 
 export const HomeCard = (props: HomeCardProps) => {
-    const { bill } = props;
-
+    const { bill, calculateBill } = props;
     return (
         <div className="flex flex-col p-5 bg-[#303030] rounded-2xl">
             <div className="flex items-center justify-between gap-2 mb-3">
@@ -36,9 +37,9 @@ export const HomeCard = (props: HomeCardProps) => {
             {bill && (
                 <BillsCard
                     id={bill.id}
-                    water={bill.water}
-                    electricity={bill.electricity}
-                    gas={bill.gas}
+                    water={calculateBill?.water.usage || 0}
+                    electricity={calculateBill?.electricity.usage || 0}
+                    gas={calculateBill?.gas.usage || 0}
                 />
             )}
 
@@ -47,7 +48,7 @@ export const HomeCard = (props: HomeCardProps) => {
                     <div>
                         <Wallet color="#3EB369" />
                     </div>
-                    <p>975 грн</p>
+                    <p>{calculateBill?.total} грн</p>
                 </div>
 
                 <div className="flex items-center justify-between gap-2">
