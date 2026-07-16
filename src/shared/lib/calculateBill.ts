@@ -27,7 +27,6 @@ export const calculateBill = (
     const waterUsage = current.water - previous.water;
 
     const gasUsage = current.gas - previous.gas;
-
     return {
         electricity: {
             usage: electricityUsage,

@@ -1,20 +1,22 @@
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { Link } from 'react-router';
 import { Card } from '@/components/ui/card';
-import { House, TrendingDown, Wallet } from 'lucide-react';
+import { House, TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BillsCard } from '@/widgets/BillsCard/BillsCard';
+import { BillsCards } from '@/widgets/BillsCard/ui/BillsCard';
 import { Bill } from '../../types/Bill';
 import { BillCalculation } from '@/shared/lib/calculateBill';
+import { compareBillsType } from '@/shared/lib/compareBills';
 
 interface HomeCardProps {
     bill: Bill;
     calculateBill: BillCalculation | null;
+    compareBills: compareBillsType | null;
 }
 
 export const HomeCard = (props: HomeCardProps) => {
-    const { bill, calculateBill } = props;
+    const { bill, calculateBill, compareBills } = props;
     return (
         <div className="flex flex-col p-5 bg-[#303030] rounded-2xl">
             <div className="flex items-center justify-between gap-2 mb-3">
@@ -35,11 +37,14 @@ export const HomeCard = (props: HomeCardProps) => {
             </div>
             <hr className="my-4" />
             {bill && (
-                <BillsCard
+                <BillsCards
                     id={bill.id}
                     water={calculateBill?.water.usage || 0}
                     electricity={calculateBill?.electricity.usage || 0}
                     gas={calculateBill?.gas.usage || 0}
+                    waterCost={calculateBill?.water.cost || 0}
+                    electricityCost={calculateBill?.electricity.cost || 0}
+                    gasCost={calculateBill?.gas.cost || 0}
                 />
             )}
 
@@ -53,10 +58,13 @@ export const HomeCard = (props: HomeCardProps) => {
 
                 <div className="flex items-center justify-between gap-2">
                     <div>
-                        <TrendingDown color="#53B559" />
-                        {/* <TrendingUp color="red" /> */}
+                        {compareBills?.isMore ? (
+                            <TrendingUp color="red" />
+                        ) : (
+                            <TrendingDown color="#53B559" />
+                        )}
                     </div>
-                    <p>-58 грн</p>
+                    <p>{compareBills?.difference} грн</p>
                 </div>
             </Card>
 
