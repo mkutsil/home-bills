@@ -50,7 +50,7 @@ export const Tariffs = () => {
     });
 
     return (
-        <Card className="w-lg">
+        <Card className="md:w-lg w-xs">
             <CardHeader>
                 <CardTitle>Change Tariffs</CardTitle>
                 <CardDescription>Enter your tariff details below.</CardDescription>
