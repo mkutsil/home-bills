@@ -11,7 +11,7 @@ export const BillCard = (props: BillCardProps) => {
     const { usage, cost, cardType = CardType.WATER } = props;
     const { title, icon, description } = cardItems[cardType];
     return (
-        <Card className="w-1/3 flex flex-col items-center gap-2 bg-[#181818] text-[#F3F3F3]">
+        <Card className="md:w-1/3 flex flex-col items-center gap-2 bg-[#181818] text-[#F3F3F3]">
             <div className="flex items-center gap-2">
                 {icon}
                 <p className="text-xl font-bold">{title}</p>

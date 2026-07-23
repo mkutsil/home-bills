@@ -37,7 +37,7 @@ export const AddBillsPage = () => {
     }
 
     return (
-        <Card className="w-lg">
+        <Card className="md:w-lg w-xs">
             <CardHeader>
                 <CardTitle>Add Bills</CardTitle>
                 <CardDescription>Enter your bill details below.</CardDescription>
