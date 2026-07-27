@@ -1,15 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
-import { useState } from 'react';
-import { sidebarItemsList } from '../model/items';
-import { Link } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useBreakpoint } from '@/lib/hooks/useBreakpoint/useBreakpoint';
+import { SidebarItemsList } from './SidebarItemsList/SidebarItemsList';
 
 export const Sidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const { isMobileOrTablet } = useBreakpoint();
 
+    useEffect(() => {
+        setIsCollapsed(isMobileOrTablet);
+    }, [isMobileOrTablet]);
     return (
         <div
-            className={`${isCollapsed ? 'w-20' : 'w-64'} bg-accent transition-all duration-300 flex-col flex gap-3.5 items-center`}
+            className={`${isCollapsed ? 'w-20 items-center' : 'md:w-64 md:px-3.5'} bg-accent transition-all duration-600 flex-col flex gap-3.5 h-full`}
         >
             <Button
                 onClick={() => setIsCollapsed(prev => !prev)}
@@ -19,13 +23,7 @@ export const Sidebar = () => {
             >
                 <Menu />
             </Button>
-
-            {sidebarItemsList.map(item => (
-                <Link to={item.path} key={item.path} className="flex items-center gap-1">
-                    <item.Icon />
-                    {!isCollapsed && item.text}
-                </Link>
-            ))}
+            <SidebarItemsList isCollapsed={isCollapsed} />
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MobileSidebar } from '@/widgets/Sidebar';
 
 export const Navbar = () => (
-    <header className="flex justify-between items-center px-5 py-3">
+    <header className="flex justify-between items-center px-5 py-3 bg-accent">
         <div className="flex items-center gap-2">
             <div className="sm:hidden block">
                 <MobileSidebar />
