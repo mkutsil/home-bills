@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router';
 import { sidebarItemsList } from '../../model/items';
 
 interface SidebarItemsListType {
@@ -8,10 +8,12 @@ interface SidebarItemsListType {
 
 export const SidebarItemsList = ({ isCollapsed, onItemClick }: SidebarItemsListType) =>
     sidebarItemsList.map(item => (
-        <Link
+        <NavLink
             to={item.path}
             key={item.path}
-            className="flex items-center gap-1"
+            className={({ isActive }) =>
+                `flex items-center gap-1 transition-all duration-200 ${!isActive && 'text-muted-foreground hover:text-chart-1'}`
+            }
             onClick={onItemClick}
         >
             <item.Icon />
@@ -24,5 +26,5 @@ export const SidebarItemsList = ({ isCollapsed, onItemClick }: SidebarItemsListT
             >
                 {item.text}
             </span>
-        </Link>
+        </NavLink>
     ));
