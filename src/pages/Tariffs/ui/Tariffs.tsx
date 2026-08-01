@@ -19,14 +19,25 @@ import { useEffect } from 'react';
 import { updateTariffs } from '../api/updateTariffs';
 import { getTariffs } from '../api/getTariffs';
 import { updateTariffsSchema } from './schema';
+import { toast } from 'sonner';
 
 export const Tariffs = () => {
     const navigate = useNavigate();
 
-    function onSubmit(data: z.infer<typeof updateTariffsSchema>) {
-        updateTariffs({ data });
-        form.reset();
-        navigate(RoutePath.home, { replace: true });
+    async function onSubmit(data: z.infer<typeof updateTariffsSchema>) {
+        try {
+            await updateTariffs({ data });
+
+            form.reset();
+
+            toast.success('Saved successfully!');
+
+            navigate(RoutePath.home, { replace: true });
+        } catch (error) {
+            console.error('Failed to update tariffs:', error);
+
+            toast.error('Failed to save tariffs');
+        }
     }
 
     useEffect(() => {

@@ -2,6 +2,8 @@ import { Navbar } from '@/widgets/Navbar';
 import './App.css';
 import { AppRouter } from './providers/router';
 import { Sidebar } from '@/widgets/Sidebar';
+import { Toaster } from '@/components/ui/sonner';
+
 const App = () => (
     <div className="dark">
         <div className="flex h-screen flex-col">
@@ -12,7 +14,7 @@ const App = () => (
                     <Sidebar />
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 my-5 justify-center flex h-max">
                     <AppRouter />
                 </div>
             </div>
@@ -31,6 +33,8 @@ const App = () => (
                 />
             ))}
         </div>
+
+        <Toaster />
     </div>
 );
 
