@@ -1,7 +1,7 @@
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { Link } from 'react-router';
 import { Card } from '@/components/ui/card';
-import { House, TrendingDown, TrendingUp, Wallet } from 'lucide-react';
+import { TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Bill } from '../../types/Bill';
@@ -15,27 +15,18 @@ interface HomeCardProps {
     calculateBill: BillCalculation | null;
     compareBills: compareBillsType | null;
 }
-
 export const HomeCard = (props: HomeCardProps) => {
     const { bill, calculateBill, compareBills } = props;
     return (
-        <div className="flex flex-col p-5 bg-[#303030] rounded-2xl">
-            <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2">
-                    <House />
-                    <div className="flex flex-col relative">
-                        <h2 className="text-xl font-bold">HomeBills</h2>
-                        <p className="text-sm text-muted-foreground">your utility dashboard</p>
-                    </div>
-                </div>
-                <Badge className="relative font-bold text-sm" variant="secondary">
-                    {bill &&
-                        new Date(bill.createdAt).toLocaleString('uk-UA', {
-                            month: 'long',
-                            year: 'numeric',
-                        })}
-                </Badge>
-            </div>
+        <Card className="flex flex-col p-5 w-max mx-auto my-5 rounded-2xl">
+            <Badge className="relative font-bold text-sm" variant="secondary">
+                {bill &&
+                    new Date(bill.createdAt).toLocaleString('uk-UA', {
+                        month: 'long',
+                        year: 'numeric',
+                    })}
+            </Badge>
+
             <hr className="my-4" />
             <BillsCards
                 id={bill?.id}
@@ -67,7 +58,7 @@ export const HomeCard = (props: HomeCardProps) => {
                             <TrendingDown color="#53B559" />
                         )}
                     </div>
-                    {compareBills?.difference === 0 ? (
+                    {compareBills?.difference && compareBills?.difference >= 0 ? (
                         <p>{compareBills?.difference} грн</p>
                     ) : (
                         <Skeleton className="h-5 w-[49px]" />
@@ -78,6 +69,6 @@ export const HomeCard = (props: HomeCardProps) => {
             <Link to={RoutePath.add_bills}>
                 <Button className="mt-5">Add Bills</Button>
             </Link>
-        </div>
+        </Card>
     );
 };

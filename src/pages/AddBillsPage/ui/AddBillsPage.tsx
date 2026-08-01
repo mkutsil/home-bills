@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router';
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { createBills } from '../api/createBill';
 import { addBillsFormSchema } from './schema';
+import { toast } from 'sonner';
 
 export const AddBillsPage = () => {
     const navigate = useNavigate();
@@ -30,10 +31,20 @@ export const AddBillsPage = () => {
         },
     });
 
-    function onSubmit(data: z.infer<typeof addBillsFormSchema>) {
-        createBills({ data });
-        form.reset();
-        navigate(RoutePath.home, { replace: true });
+    async function onSubmit(data: z.infer<typeof addBillsFormSchema>) {
+        try {
+            await createBills({ data });
+
+            form.reset();
+
+            toast.success('Saved successfully!');
+
+            navigate(RoutePath.home, { replace: true });
+        } catch (error) {
+            console.error('Failed to update tariffs:', error);
+
+            toast.error('Failed to save tariffs');
+        }
     }
 
     return (

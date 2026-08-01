@@ -6,6 +6,7 @@ import { getTariffs } from '@/pages/Tariffs/api/getTariffs';
 import { TariffsType } from '@/pages/Tariffs/types/Tariffs';
 import { calculateBill } from '@/shared/lib/calculateBill';
 import { compareBills } from '@/shared/lib/compareBills';
+import { BillsEmpty } from '@/widgets/BillsEmpty';
 
 export const HomePage = () => {
     const [bills, setBills] = useState<Bill[]>([]);
@@ -35,6 +36,12 @@ export const HomePage = () => {
 
         return compareBills(currentMonth, previousMonth);
     }, [bills, tariffs]);
+
+    const billsIsEmpty = bills && bills.length === 0;
+
+    if (billsIsEmpty) {
+        return <BillsEmpty />;
+    }
 
     return <HomeCard compareBills={comparison} calculateBill={calculation} bill={bills[0]} />;
 };
