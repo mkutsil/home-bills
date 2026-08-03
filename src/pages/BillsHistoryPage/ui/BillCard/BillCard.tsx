@@ -10,6 +10,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { DialogDemo } from '../modal';
+import { useState } from 'react';
 
 interface BillCardProps {
     bill: Bill;
@@ -22,6 +24,7 @@ interface BillCardProps {
 
 export const BillCard = (props: BillCardProps) => {
     const { bill, updateBill, deleteBill } = props;
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleEdit = () => {
         updateBill({
@@ -35,46 +38,50 @@ export const BillCard = (props: BillCardProps) => {
     };
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>
-                    {bill &&
-                        new Date(bill.month).toLocaleString('uk-UA', {
-                            month: 'long',
-                            year: 'numeric',
-                        })}
-                </CardTitle>
+        <>
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        {bill &&
+                            new Date(bill.month).toLocaleString('uk-UA', {
+                                month: 'long',
+                                year: 'numeric',
+                            })}
+                    </CardTitle>
 
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline">Actions</Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem onClick={handleEdit}>
-                                <PencilIcon />
-                                Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <ShareIcon />
-                                Share
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem variant="destructive" onClick={handleDelete}>
-                                <TrashIcon />
-                                Delete
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </CardHeader>
-            <CardContent>
-                <p>Вода : {bill.water}</p>
-                <p>Електроенергія : {bill.electricity}</p>
-                <p>Газ : {bill.gas}</p>
-            </CardContent>
-        </Card>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline">Actions</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem onClick={handleEdit}>
+                                    <PencilIcon />
+                                    Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <ShareIcon />
+                                    Share
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem variant="destructive" onClick={handleDelete}>
+                                    <TrashIcon />
+                                    Delete
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </CardHeader>
+                <CardContent>
+                    <p>Вода : {bill.water}</p>
+                    <p>Електроенергія : {bill.electricity}</p>
+                    <p>Газ : {bill.gas}</p>
+                </CardContent>
+            </Card>
+
+            <DialogDemo open={isDialogOpen} onOpenChange={setIsDialogOpen} />
+        </>
     );
 };
