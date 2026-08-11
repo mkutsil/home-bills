@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bill } from '../../types/Bill';
-import { PencilIcon, ShareIcon, TrashIcon } from 'lucide-react';
+import { EllipsisVerticalIcon, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -26,11 +26,20 @@ export const BillCard = (props: BillCardProps) => {
     const { bill, updateBill, deleteBill } = props;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+    const handleUpdate = async (id: string, data: Omit<Bill, 'id' | 'month' | 'createdAt'>) => {
+        try {
+            await updateBill({
+                id,
+                data,
+            });
+            setIsDialogOpen(false);
+        } catch (error) {
+            console.error('Failed to update bill:', error);
+        }
+    };
+
     const handleEdit = () => {
-        updateBill({
-            id: bill.id,
-            data: { water: bill.water, electricity: bill.electricity, gas: bill.gas },
-        });
+        setIsDialogOpen(true);
     };
 
     const handleDelete = () => {
@@ -39,8 +48,8 @@ export const BillCard = (props: BillCardProps) => {
 
     return (
         <>
-            <Card>
-                <CardHeader>
+            <Card className="w-max-content">
+                <CardHeader className="flex items-center justify-between gap-5">
                     <CardTitle>
                         {bill &&
                             new Date(bill.month).toLocaleString('uk-UA', {
@@ -51,7 +60,9 @@ export const BillCard = (props: BillCardProps) => {
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline">Actions</Button>
+                            <Button variant="outline" size="icon">
+                                <EllipsisVerticalIcon />
+                            </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <DropdownMenuGroup>
@@ -81,7 +92,17 @@ export const BillCard = (props: BillCardProps) => {
                 </CardContent>
             </Card>
 
-            <DialogDemo open={isDialogOpen} onOpenChange={setIsDialogOpen} />
+            <DialogDemo
+                data={{
+                    id: bill.id,
+                    electricity: bill.electricity,
+                    water: bill.water,
+                    gas: bill.gas,
+                }}
+                handleUpdate={handleUpdate}
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+            />
         </>
     );
 };

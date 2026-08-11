@@ -1,49 +1,38 @@
-import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
-import { Field, FieldGroup } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { AddBillsForm } from '@/features/AddBillsForm/ui/AddBillsForm';
+import { Bill } from '../types/Bill';
 
 interface DialogDemoProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    handleUpdate: (props: {
+        id: string;
+        data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
+    }) => Promise<void>;
+    data: Omit<Bill, 'month' | 'createdAt'>;
 }
 
-export const DialogDemo = ({ open, onOpenChange }: DialogDemoProps) => (
+export const DialogDemo = ({ open, onOpenChange, handleUpdate, data }: DialogDemoProps) => (
     <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-sm">
-            <DialogHeader>
+        <DialogContent>
+            {/* className="sm:max-w-sm" */}
+            {/* <DialogHeader>
                 <DialogTitle>Edit profile</DialogTitle>
                 <DialogDescription>Make changes to your profile here.</DialogDescription>
-            </DialogHeader>
-
-            <FieldGroup>
-                <Field>
-                    <Label htmlFor="name-1">Name</Label>
-                    <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-                </Field>
-
-                <Field>
-                    <Label htmlFor="username-1">Username</Label>
-                    <Input id="username-1" name="username" defaultValue="@peduarte" />
-                </Field>
-            </FieldGroup>
-
-            <DialogFooter>
+            </DialogHeader> */}
+            <AddBillsForm
+                open={open}
+                onOpenChange={onOpenChange}
+                handleUpdate={handleUpdate}
+                data={data}
+            />
+            {/* <DialogFooter>
                 <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                 </DialogClose>
 
                 <Button type="submit">Save changes</Button>
-            </DialogFooter>
+            </DialogFooter> */}
         </DialogContent>
     </Dialog>
 );
