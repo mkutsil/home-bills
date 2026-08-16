@@ -26,7 +26,13 @@ export const BillCard = (props: BillCardProps) => {
     const { bill, updateBill, deleteBill } = props;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const handleUpdate = async (id: string, data: Omit<Bill, 'id' | 'month' | 'createdAt'>) => {
+    const handleUpdate = async ({
+        id,
+        data,
+    }: {
+        id: string;
+        data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
+    }) => {
         try {
             await updateBill({
                 id,

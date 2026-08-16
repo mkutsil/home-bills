@@ -2,23 +2,21 @@ import { db } from '@/app/firebase/config';
 import { addDoc, collection } from 'firebase/firestore';
 
 interface createBillsType {
-    data: {
-        water: string;
-        electricity: string;
-        gas: string;
-    };
+    water: string;
+    electricity: string;
+    gas: string;
 }
 
 export const createBills = async (props: createBillsType) => {
-    const { data } = props;
+    const { water, electricity, gas } = props;
     const now = new Date();
 
     const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     await addDoc(collection(db, 'bills'), {
         month,
-        water: Number(data.water),
-        electricity: Number(data.electricity),
-        gas: Number(data.gas),
+        water: Number(water),
+        electricity: Number(electricity),
+        gas: Number(gas),
         createdAt: Date.now(),
     });
 };

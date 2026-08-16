@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { AddBillsForm } from '@/features/AddBillsForm/ui/AddBillsForm';
 import { Bill } from '../types/Bill';
+import { BillDialogForm } from '@/features/manageBill';
 
 interface DialogDemoProps {
     open: boolean;
@@ -20,12 +20,7 @@ export const DialogDemo = ({ open, onOpenChange, handleUpdate, data }: DialogDem
                 <DialogTitle>Edit profile</DialogTitle>
                 <DialogDescription>Make changes to your profile here.</DialogDescription>
             </DialogHeader> */}
-            <AddBillsForm
-                open={open}
-                onOpenChange={onOpenChange}
-                handleUpdate={handleUpdate}
-                data={data}
-            />
+            <BillDialogForm handleUpdate={handleUpdate} data={data} />
             {/* <DialogFooter>
                 <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>

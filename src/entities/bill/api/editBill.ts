@@ -11,10 +11,10 @@ export interface EditBillType {
 
 export const editBill = async (props: EditBillType) => {
     const { id, data } = props;
-
     await updateDoc(doc(db, 'bills', id), {
-        water: Number(data.water),
-        electricity: Number(data.electricity),
-        gas: Number(data.gas),
+        ...data,
+        // water: Number(data.water),
+        // electricity: Number(data.electricity),
+        // gas: Number(data.gas),
     });
 };
