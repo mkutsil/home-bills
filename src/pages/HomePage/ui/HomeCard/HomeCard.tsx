@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Bill } from '../../types/Bill';
+import { Bill } from '@/features/manageBill';
 import { BillCalculation } from '@/shared/lib/calculateBill';
 import { compareBillsType } from '@/shared/lib/compareBills';
 import { BillsCards } from '@/widgets/BillsCard';

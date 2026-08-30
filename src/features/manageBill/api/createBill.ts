@@ -1,7 +1,7 @@
 import { db } from '@/app/firebase/config';
 import { addDoc, collection } from 'firebase/firestore';
 
-interface createBillsType {
+interface CreateBillsProps {
     data: {
         water: string;
         electricity: string;
@@ -9,7 +9,7 @@ interface createBillsType {
     };
 }
 
-export const createBills = async (props: createBillsType) => {
+export const createBill = async (props: CreateBillsProps) => {
     const { data } = props;
     const now = new Date();
 

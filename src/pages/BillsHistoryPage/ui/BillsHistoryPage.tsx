@@ -1,6 +1,6 @@
 import { BillCard } from './BillCard/BillCard';
 import { BillsEmpty } from '@/widgets/BillsEmpty';
-import { useBills } from '@/entities/bill/api/useBill';
+import { useBills } from '@/features/manageBill/model/useBills';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export const BillsHistoryPage = () => {

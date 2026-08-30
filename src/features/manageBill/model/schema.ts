@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const addBillsFormSchema = z.object({
+export const billSchema = z.object({
     electricity: z
         .string()
         .min(1, 'Electricity must be at least 1 character.')
