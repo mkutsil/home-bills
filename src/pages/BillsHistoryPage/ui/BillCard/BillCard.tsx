@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bill, updateBillProps } from '@/features/manageBill';
+import { Bill } from '@/features/manageBill';
 import { EllipsisVerticalIcon, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,10 +12,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UpdateBillModal } from '../UpdateBillModal';
 import { useState } from 'react';
+import { UpdateBillProps } from '@/features/manageBill/model/types';
 
 interface BillCardProps {
     bill: Bill;
-    updateBill: (props: updateBillProps) => Promise<void>;
+    updateBill: (props: UpdateBillProps) => Promise<void>;
     deleteBill: (id: string) => Promise<void>;
 }
 
@@ -23,7 +24,7 @@ export const BillCard = (props: BillCardProps) => {
     const { bill, updateBill, deleteBill } = props;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const handleUpdate = async ({ id, data }: updateBillProps) => {
+    const handleUpdate = async ({ id, data }: UpdateBillProps) => {
         try {
             await updateBill({
                 id,

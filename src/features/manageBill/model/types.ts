@@ -12,7 +12,7 @@ export type Bill = {
     createdAt: number;
 };
 
-export interface updateBillProps {
+export interface UpdateBillProps {
     id: string;
     data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
 }

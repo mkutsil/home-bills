@@ -5,7 +5,7 @@ import { TariffsType } from '@/pages/Tariffs/types/Tariffs';
 import { calculateBill } from '@/shared/lib/calculateBill';
 import { compareBills } from '@/shared/lib/compareBills';
 import { BillsEmpty } from '@/widgets/BillsEmpty';
-import { useBills } from '@/features/manageBill/model/useBill';
+import { useBills } from '@/features/manageBill/model/useBills';
 
 export const HomePage = () => {
     const { data: bills = [] } = useBills();

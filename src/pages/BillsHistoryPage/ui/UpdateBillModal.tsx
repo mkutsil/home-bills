@@ -1,11 +1,11 @@
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Bill, updateBillProps } from '@/features/manageBill';
+import { Bill, UpdateBillProps } from '@/features/manageBill';
 import { BillDialogForm } from '@/features/manageBill';
 
 interface UpdateBillModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    handleUpdate: (props: updateBillProps) => Promise<void>;
+    handleUpdate: (props: UpdateBillProps) => Promise<void>;
     data: Omit<Bill, 'month' | 'createdAt'>;
 }
 

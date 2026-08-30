@@ -9,10 +9,10 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { Bill, BillFormValues, updateBillProps } from '../model/types';
+import { Bill, BillFormValues, UpdateBillProps } from '../model/types';
 
 interface BillDialogFormProps {
-    handleUpdate: (props: updateBillProps) => Promise<void>;
+    handleUpdate: (props: UpdateBillProps) => Promise<void>;
     data: Omit<Bill, 'month' | 'createdAt'>;
 }
 export const BillDialogForm = (props: BillDialogFormProps) => {

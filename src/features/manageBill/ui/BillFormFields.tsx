@@ -1,6 +1,6 @@
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import Input from '@/shared/ui/Input/Input';
-import { Controller, UseFormReturn } from 'react-hook-form';
+import { Controller, type UseFormReturn } from 'react-hook-form';
 import { BillFormValues } from '../model/types';
 
 interface BillFormFieldsProps {

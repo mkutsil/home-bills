@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchBills, updateBill, deleteBill } from '../api';
-import { updateBillProps } from './types';
+import { UpdateBillProps } from './types';
 
 export const useBills = () => {
     const queryClient = useQueryClient();
@@ -11,7 +11,7 @@ export const useBills = () => {
     });
 
     const updateMutation = useMutation({
-        mutationFn: ({ id, data }: updateBillProps) => updateBill({ id, data }),
+        mutationFn: ({ id, data }: UpdateBillProps) => updateBill({ id, data }),
 
         onSuccess: () => {
             queryClient.invalidateQueries({
