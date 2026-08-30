@@ -1,3 +1,3 @@
-import { BillPageForm } from '@/features/manageBill/ui/BillPageForm';
+import { BillPageForm } from '@/features/manageBill';
 
 export const AddBillsPage = () => <BillPageForm />;

@@ -14,14 +14,14 @@ import { useBillForm } from '../model/useBillForm';
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { useNavigate } from 'react-router-dom';
 import { BillFormValues } from '../model/types';
-import { createBills } from '@/pages/AddBillsPage/api/createBill';
+import { createBill } from '../api';
 
 export const BillPageForm = () => {
     const { form } = useBillForm({});
     const navigate = useNavigate();
     async function onSubmit(submitData: BillFormValues) {
         try {
-            await createBills(submitData);
+            await createBill({ data: submitData });
             form.reset();
 
             toast.success('Saved successfully!');

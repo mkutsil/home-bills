@@ -1,9 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
-import { fetchBills } from './fetchBills';
-import { editBill } from './editBill';
-import { deleteBill } from './deleteBill';
-import { Bill } from '@/pages/BillsHistoryPage/types/Bill';
+import { fetchBills, updateBill, deleteBill } from '../api';
+import { updateBillProps } from './types';
 
 export const useBills = () => {
     const queryClient = useQueryClient();
@@ -14,13 +11,7 @@ export const useBills = () => {
     });
 
     const updateMutation = useMutation({
-        mutationFn: ({
-            id,
-            data,
-        }: {
-            id: string;
-            data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
-        }) => editBill({ id, data }),
+        mutationFn: ({ id, data }: updateBillProps) => updateBill({ id, data }),
 
         onSuccess: () => {
             queryClient.invalidateQueries({

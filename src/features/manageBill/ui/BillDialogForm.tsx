@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { Bill } from '@/pages/BillsHistoryPage/types/Bill';
 import { BillFormFields } from './BillFormFields';
 import { useBillForm } from '../model/useBillForm';
 import {
@@ -10,13 +9,10 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { BillFormValues } from '../model/types';
+import { Bill, BillFormValues, updateBillProps } from '../model/types';
 
 interface BillDialogFormProps {
-    handleUpdate: (props: {
-        id: string;
-        data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
-    }) => Promise<void>;
+    handleUpdate: (props: updateBillProps) => Promise<void>;
     data: Omit<Bill, 'month' | 'createdAt'>;
 }
 export const BillDialogForm = (props: BillDialogFormProps) => {
@@ -30,9 +26,9 @@ export const BillDialogForm = (props: BillDialogFormProps) => {
     async function onSubmit(submitData: BillFormValues) {
         try {
             const reformedData = {
-                electricity: Number(submitData.electricity),
-                water: Number(submitData.water),
-                gas: Number(submitData.gas),
+                electricity: +submitData.electricity,
+                water: +submitData.water,
+                gas: +submitData.gas,
             };
             await handleUpdate({ id: data.id, data: reformedData });
 

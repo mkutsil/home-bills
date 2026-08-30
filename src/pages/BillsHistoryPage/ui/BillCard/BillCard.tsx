@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bill } from '../../types/Bill';
+import { Bill, updateBillProps } from '@/features/manageBill';
 import { EllipsisVerticalIcon, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,15 +10,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { DialogDemo } from '../modal';
+import { UpdateBillModal } from '../UpdateBillModal';
 import { useState } from 'react';
 
 interface BillCardProps {
     bill: Bill;
-    updateBill: (props: {
-        id: string;
-        data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
-    }) => Promise<void>;
+    updateBill: (props: updateBillProps) => Promise<void>;
     deleteBill: (id: string) => Promise<void>;
 }
 
@@ -26,13 +23,7 @@ export const BillCard = (props: BillCardProps) => {
     const { bill, updateBill, deleteBill } = props;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const handleUpdate = async ({
-        id,
-        data,
-    }: {
-        id: string;
-        data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
-    }) => {
+    const handleUpdate = async ({ id, data }: updateBillProps) => {
         try {
             await updateBill({
                 id,
@@ -98,7 +89,7 @@ export const BillCard = (props: BillCardProps) => {
                 </CardContent>
             </Card>
 
-            <DialogDemo
+            <UpdateBillModal
                 data={{
                     id: bill.id,
                     electricity: bill.electricity,
