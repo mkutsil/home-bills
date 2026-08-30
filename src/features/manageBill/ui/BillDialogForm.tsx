@@ -36,9 +36,9 @@ export const BillDialogForm = (props: BillDialogFormProps) => {
 
             toast.success('Saved successfully!');
         } catch (error) {
-            console.error('Failed to update tariffs:', error);
+            console.error('Failed to update bill:', error);
 
-            toast.error('Failed to save tariffs');
+            toast.error('Failed to save bill');
         }
     }
 

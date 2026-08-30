@@ -7,6 +7,5 @@ export const updateBill = async (props: UpdateBillProps) => {
 
     await updateDoc(doc(db, 'bills', id), {
         ...data,
-        createdAt: Date.now(),
     });
 };
