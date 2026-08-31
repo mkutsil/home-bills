@@ -14,5 +14,5 @@ export type Bill = {
 
 export interface UpdateBillProps {
     id: string;
-    data: Omit<Bill, 'id' | 'month' | 'createdAt'>;
+    data: Omit<Bill, 'id' | 'createdAt'>;
 }

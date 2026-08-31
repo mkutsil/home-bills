@@ -13,7 +13,7 @@ import { Bill, BillFormValues, UpdateBillProps } from '../model/types';
 
 interface BillDialogFormProps {
     handleUpdate: (props: UpdateBillProps) => Promise<void>;
-    data: Omit<Bill, 'month' | 'createdAt'>;
+    data: Omit<Bill, 'createdAt'>;
 }
 export const BillDialogForm = (props: BillDialogFormProps) => {
     const { data, handleUpdate } = props;
@@ -21,6 +21,7 @@ export const BillDialogForm = (props: BillDialogFormProps) => {
         water: data.water.toString(),
         electricity: data.electricity.toString(),
         gas: data.gas.toString(),
+        month: data.month,
     });
 
     async function onSubmit(submitData: BillFormValues) {
@@ -29,6 +30,7 @@ export const BillDialogForm = (props: BillDialogFormProps) => {
                 electricity: +submitData.electricity,
                 water: +submitData.water,
                 gas: +submitData.gas,
+                month: submitData.month,
             };
             await handleUpdate({ id: data.id, data: reformedData });
 

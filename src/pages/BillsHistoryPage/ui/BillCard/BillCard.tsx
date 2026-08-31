@@ -96,6 +96,7 @@ export const BillCard = (props: BillCardProps) => {
                     electricity: bill.electricity,
                     water: bill.water,
                     gas: bill.gas,
+                    month: bill.month,
                 }}
                 handleUpdate={handleUpdate}
                 open={isDialogOpen}

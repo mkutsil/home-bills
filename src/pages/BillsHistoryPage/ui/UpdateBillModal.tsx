@@ -6,7 +6,7 @@ interface UpdateBillModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     handleUpdate: (props: UpdateBillProps) => Promise<void>;
-    data: Omit<Bill, 'month' | 'createdAt'>;
+    data: Omit<Bill, 'createdAt'>;
 }
 
 export const UpdateBillModal = ({

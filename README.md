@@ -23,13 +23,16 @@ The app allows you to store meter readings, calculate monthly consumption, and c
 ## 🚀 Roadmap
 
 - ✅ Project setup (Vite + React + TypeScript)
-- 🔜 Utility meter entities & data models
-- 🔜 Monthly readings form
-- 🔜 Tariff management
+- ✅ Utility meter entities & data models
+- ✅ Monthly readings form
+- ✅ Tariff management
+- ✅ Firebase / Firestore integration
+- ✅ CRUD operations for meter readings
+- ✅ Home dashboard with monthly comparison
 - 🔜 Charts & analytics
 - 🔜 Export data (CSV / PDF)
 - 🔜 Authentication & cloud sync
-- 🔜 Backend & database integration
+- 🔜 Backend improvements
 
 ## 🛠️ Tech Stack
 
