@@ -1,4 +1,4 @@
-import { Bill } from '@/pages/HomePage/types/Bill';
+import { Bill } from '@/features/manageBill';
 import { TariffsType } from '@/pages/Tariffs/types/Tariffs';
 
 export type BillCalculation = {
@@ -27,6 +27,7 @@ export const calculateBill = (
     const waterUsage = current.water - previous.water;
 
     const gasUsage = current.gas - previous.gas;
+
     return {
         electricity: {
             usage: electricityUsage,

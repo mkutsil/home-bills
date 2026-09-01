@@ -7,6 +7,7 @@ interface BillFormFields {
     water: string;
     electricity: string;
     gas: string;
+    month: string;
 }
 
 export const useBillForm = (props: Partial<BillFormFields>) => {
@@ -16,6 +17,7 @@ export const useBillForm = (props: Partial<BillFormFields>) => {
             water: props.water,
             electricity: props.electricity,
             gas: props.gas,
+            month: props.month,
         },
     });
     return { form };

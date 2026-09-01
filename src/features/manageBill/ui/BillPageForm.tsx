@@ -17,7 +17,15 @@ import { BillFormValues } from '../model/types';
 import { createBill } from '../api';
 
 export const BillPageForm = () => {
-    const { form } = useBillForm({});
+    const now = new Date();
+
+    const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const { form } = useBillForm({
+        month,
+        water: '',
+        electricity: '',
+        gas: '',
+    });
     const navigate = useNavigate();
     async function onSubmit(submitData: BillFormValues) {
         try {
