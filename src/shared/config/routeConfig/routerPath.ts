@@ -3,6 +3,7 @@ export enum AppRouters {
     ADD_BILLS = 'add_bills',
     TARIFFS = 'tariffs',
     BILLS_HISTORY = 'bills_history',
+    STATISTICS = 'statistics',
     NOT_FOUND = 'not_found',
 }
 
@@ -11,5 +12,6 @@ export const RoutePath: Record<AppRouters, string> = {
     [AppRouters.ADD_BILLS]: '/add-bills',
     [AppRouters.TARIFFS]: '/tariffs',
     [AppRouters.BILLS_HISTORY]: '/bills-history',
+    [AppRouters.STATISTICS]: '/statistics',
     [AppRouters.NOT_FOUND]: '*',
 };

@@ -5,6 +5,7 @@ import type { RouteProps } from 'react-router-dom';
 import { AppRouters, RoutePath } from './routerPath';
 import { Tariffs } from '@/pages/Tariffs/ui/Tariffs';
 import { BillsHistoryPage } from '@/pages/BillsHistoryPage';
+import { StatisticsPage } from '@/pages/StatisticsPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -26,6 +27,10 @@ export const routerConfig: Record<AppRouters, AppRoutesProps> = {
     [AppRouters.BILLS_HISTORY]: {
         path: RoutePath.bills_history,
         element: <BillsHistoryPage />,
+    },
+    [AppRouters.STATISTICS]: {
+        path: RoutePath.statistics,
+        element: <StatisticsPage />,
     },
     [AppRouters.NOT_FOUND]: {
         path: RoutePath.not_found,
