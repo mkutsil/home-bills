@@ -16,5 +16,5 @@ export const billSchema = z.object({
         .min(1, 'Gas must be at least 1 character.')
         .max(10, 'Gas must be at most 10 characters.')
         .regex(/^[0-9]+$/, 'Gas can only contain numbers.'),
-    month: z.string(),
+    month: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'Invalid month format'),
 });

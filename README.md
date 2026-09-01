@@ -32,7 +32,6 @@ The app allows you to store meter readings, calculate monthly consumption, and c
 - 🔜 Charts & analytics
 - 🔜 Export data (CSV / PDF)
 - 🔜 Authentication & cloud sync
-- 🔜 Backend improvements
 
 ## 🛠️ Tech Stack
 

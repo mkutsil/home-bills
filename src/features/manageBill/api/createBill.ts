@@ -1,5 +1,5 @@
 import { db } from '@/app/firebase/config';
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 interface CreateBillsProps {
     data: {
@@ -13,7 +13,7 @@ interface CreateBillsProps {
 export const createBill = async (props: CreateBillsProps) => {
     const { data } = props;
 
-    await addDoc(collection(db, 'bills'), {
+    await setDoc(doc(db, 'bills', data.month), {
         month: data.month,
         water: Number(data.water),
         electricity: Number(data.electricity),
