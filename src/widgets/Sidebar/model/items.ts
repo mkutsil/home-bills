@@ -1,5 +1,5 @@
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
-import { House, FolderClock, FolderPlus, Receipt } from 'lucide-react';
+import { House, FolderClock, FolderPlus, Receipt, ChartNoAxesCombined } from 'lucide-react';
 
 export interface SidebarItemType {
     path: string;
@@ -28,5 +28,11 @@ export const sidebarItemsList: SidebarItemType[] = [
         path: RoutePath.tariffs,
         text: 'Tariffs',
         Icon: Receipt,
+    },
+
+    {
+        path: RoutePath.statistics,
+        text: 'Statistics',
+        Icon: ChartNoAxesCombined,
     },
 ];
