@@ -15,6 +15,7 @@ export type BillCalculation = {
         cost: number;
     };
     total: number;
+    month: string;
 };
 
 export const calculateBill = (
@@ -45,5 +46,6 @@ export const calculateBill = (
             electricityUsage * tariffs.electricity +
             waterUsage * tariffs.water +
             gasUsage * tariffs.gas,
+        month: current.month,
     };
 };
