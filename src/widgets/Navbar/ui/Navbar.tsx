@@ -1,14 +1,17 @@
 import { Bell, House } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MobileSidebar } from '@/widgets/Sidebar';
+import { Link } from 'react-router-dom';
+import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 
 export const Navbar = () => (
     <header className="flex justify-between items-center px-5 py-3 bg-accent">
         <div className="flex items-center gap-2">
-            <div className="sm:hidden block">
+            {/* <div className="sm:hidden block">
                 <MobileSidebar />
-            </div>
-            <House />
+            </div> */}
+            <Link to={RoutePath.home}>
+                <House />
+            </Link>
             <div className="flex flex-col relative">
                 <h2 className="text-xl font-bold">HomeBills</h2>
                 <p className="text-sm text-muted-foreground">your utility dashboard</p>

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import { sidebarItemsList } from '../../model/items';
+import { sidebarItemsList } from '@/shared/config/sidebarItemsList/items';
 
 interface SidebarItemsListType {
     isCollapsed: boolean;
