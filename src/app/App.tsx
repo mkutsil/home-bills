@@ -8,7 +8,9 @@ import { MobileBottomNavbar } from '@/widgets/MobileBottomNavbar';
 const App = () => (
     <div className="dark">
         <div className="flex h-screen flex-col">
-            <Navbar />
+            <div className="max-sm:hidden">
+                <Navbar />
+            </div>
 
             <div className="flex flex-1">
                 <div className="max-sm:hidden">

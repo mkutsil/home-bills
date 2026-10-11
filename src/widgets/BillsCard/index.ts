@@ -1,3 +1,3 @@
-import { BillsCards } from './ui/BillsCard';
+export { BillsCards } from './ui/BillsCard';
 
-export { BillsCards };
+export { BillCard } from './ui/BillCard';
