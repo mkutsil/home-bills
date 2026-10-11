@@ -1,6 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bill } from '@/features/manageBill';
-import { EllipsisVerticalIcon, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react';
+import {
+    Droplets,
+    EllipsisVerticalIcon,
+    Flame,
+    PencilIcon,
+    ShareIcon,
+    TrashIcon,
+    Zap,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -83,10 +91,17 @@ export const BillCard = (props: BillCardProps) => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </CardHeader>
-                <CardContent>
-                    <p>Вода : {bill.water}</p>
-                    <p>Електроенергія : {bill.electricity}</p>
-                    <p>Газ : {bill.gas}</p>
+                <CardContent className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                        <Droplets color="#3D6493" />- <span>{bill.water} м³</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Zap color="#F3B923" className="animate-pulse" />-{' '}
+                        <span>{bill.electricity} кВт·год</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Flame color="#FBBA74" />- <span>{bill.gas} м³</span>
+                    </div>
                 </CardContent>
             </Card>
 

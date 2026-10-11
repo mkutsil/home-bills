@@ -3,18 +3,25 @@ import './App.css';
 import { AppRouter } from './providers/router';
 import { Sidebar } from '@/widgets/Sidebar';
 import { Toaster } from '@/components/ui/sonner';
+import { MobileBottomNavbar } from '@/widgets/MobileBottomNavbar';
 
 const App = () => (
     <div className="dark">
         <div className="flex h-screen flex-col">
-            <Navbar />
+            <div className="max-sm:hidden">
+                <Navbar />
+            </div>
 
             <div className="flex flex-1">
                 <div className="max-sm:hidden">
                     <Sidebar />
                 </div>
 
-                <div className="flex-1 my-5 justify-center flex h-max">
+                <div className="sm:hidden">
+                    <MobileBottomNavbar />
+                </div>
+
+                <div className="flex-1 my-5 justify-center flex h-max max-sm:pb-20">
                     <AppRouter />
                 </div>
             </div>
