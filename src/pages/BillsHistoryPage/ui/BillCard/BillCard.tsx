@@ -34,7 +34,7 @@ export const BillCard = (props: BillCardProps) => {
 
     const handleUpdate = async ({ id, data }: UpdateBillProps) => {
         try {
-            await updateBill({
+            updateBill({
                 id,
                 data,
             });

@@ -1,20 +1,14 @@
 import { calculateBill } from '@/shared/lib/calculateBill';
 import { Recharts } from './Recharts';
 import { useBills } from '@/features/manageBill/model/useBills';
-import { useEffect, useState } from 'react';
-import { getTariffs } from '@/pages/Tariffs/api/getTariffs';
-import { TariffsType } from '@/pages/Tariffs/types/Tariffs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RechartsData } from '../model/types';
+import { useTariffs } from '@/pages/Tariffs/model/useTariffs';
 
 export const StatisticsPage = () => {
     const { data: bills = [] } = useBills();
 
-    const [tariffs, setTariffs] = useState<TariffsType | null>(null);
-
-    useEffect(() => {
-        getTariffs().then(tariffs => setTariffs(tariffs));
-    }, []);
+    const { data: tariffs } = useTariffs();
 
     if (bills.length < 3 || !tariffs) {
         return <Skeleton className="h-100 w-200 rounded-md" />;

@@ -15,41 +15,27 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router';
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
-import { useEffect } from 'react';
-import { updateTariffs } from '../api/updateTariffs';
-import { getTariffs } from '../api/getTariffs';
 import { updateTariffsSchema } from './schema';
 import { toast } from 'sonner';
+import { useEffect } from 'react';
+import { useTariffs } from '../model/useTariffs';
 
 export const Tariffs = () => {
     const navigate = useNavigate();
+    const { data: tariffs, updateTariff } = useTariffs();
 
     async function onSubmit(data: z.infer<typeof updateTariffsSchema>) {
         try {
-            await updateTariffs({ data });
+            updateTariff({ data });
 
             form.reset();
-
             toast.success('Saved successfully!');
-
             navigate(RoutePath.home, { replace: true });
         } catch (error) {
             console.error('Failed to update tariffs:', error);
-
             toast.error('Failed to save tariffs');
         }
     }
-
-    useEffect(() => {
-        getTariffs().then(tariffs => {
-            form.reset({
-                electricity: tariffs?.electricity.toString() || '',
-                water: tariffs?.water.toString() || '',
-                gas: tariffs?.gas.toString() || '',
-            });
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const form = useForm<z.infer<typeof updateTariffsSchema>>({
         resolver: zodResolver(updateTariffsSchema),
@@ -59,6 +45,14 @@ export const Tariffs = () => {
             gas: '',
         },
     });
+
+    useEffect(() => {
+        form.reset({
+            electricity: tariffs?.electricity.toString() || '',
+            water: tariffs?.water.toString() || '',
+            gas: tariffs?.gas.toString() || '',
+        });
+    }, [tariffs, form]);
 
     return (
         <Card className="md:w-lg w-xs">
@@ -139,7 +133,11 @@ export const Tariffs = () => {
                     <Button type="button" variant="outline" onClick={() => form.reset()}>
                         Reset
                     </Button>
-                    <Button type="submit" form="form-rhf-input">
+                    <Button
+                        type="submit"
+                        form="form-rhf-input"
+                        disabled={form.formState.isSubmitting || !form.formState.isDirty}
+                    >
                         Save
                     </Button>
                 </Field>
