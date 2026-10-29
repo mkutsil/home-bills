@@ -19,14 +19,15 @@ import { updateTariffsSchema } from './schema';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
 import { useTariffs } from '../model/useTariffs';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const Tariffs = () => {
     const navigate = useNavigate();
-    const { data: tariffs, updateTariff } = useTariffs();
+    const { data: tariffs, updateTariff, isUpdating, isLoading } = useTariffs();
 
     async function onSubmit(data: z.infer<typeof updateTariffsSchema>) {
         try {
-            updateTariff({ data });
+            await updateTariff({ data });
 
             form.reset();
             toast.success('Saved successfully!');
@@ -71,13 +72,18 @@ export const Tariffs = () => {
                                     <FieldLabel htmlFor="form-rhf-input-electricity">
                                         ⚡ Electricity
                                     </FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id="form-rhf-input-electricity"
-                                        aria-invalid={fieldState.invalid}
-                                        placeholder="Enter your electricity bill"
-                                        autoComplete="electricity"
-                                    />
+                                    {isLoading ? (
+                                        <Skeleton className="h-8 w-full" />
+                                    ) : (
+                                        <Input
+                                            {...field}
+                                            id="form-rhf-input-electricity"
+                                            aria-invalid={fieldState.invalid}
+                                            placeholder="Enter your electricity bill"
+                                            autoComplete="electricity"
+                                            disabled={isUpdating}
+                                        />
+                                    )}
 
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
@@ -92,13 +98,18 @@ export const Tariffs = () => {
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="form-rhf-input-water">💧 Water</FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id="form-rhf-input-water"
-                                        aria-invalid={fieldState.invalid}
-                                        placeholder="Enter your water bill"
-                                        autoComplete="water"
-                                    />
+                                    {isLoading ? (
+                                        <Skeleton className="h-8 w-full" />
+                                    ) : (
+                                        <Input
+                                            {...field}
+                                            id="form-rhf-input-water"
+                                            aria-invalid={fieldState.invalid}
+                                            placeholder="Enter your water bill"
+                                            autoComplete="water"
+                                            disabled={isUpdating || isLoading}
+                                        />
+                                    )}
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
                                     )}
@@ -112,13 +123,18 @@ export const Tariffs = () => {
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="form-rhf-input-gas">🔥 Gas</FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id="form-rhf-input-gas"
-                                        aria-invalid={fieldState.invalid}
-                                        placeholder="Enter your gas bill"
-                                        autoComplete="gas"
-                                    />
+                                    {isLoading ? (
+                                        <Skeleton className="h-8 w-full" />
+                                    ) : (
+                                        <Input
+                                            {...field}
+                                            id="form-rhf-input-gas"
+                                            aria-invalid={fieldState.invalid}
+                                            placeholder="Enter your gas bill"
+                                            autoComplete="gas"
+                                            disabled={isUpdating || isLoading}
+                                        />
+                                    )}
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
                                     )}

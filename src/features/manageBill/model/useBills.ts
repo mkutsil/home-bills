@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchBills, updateBill, deleteBill, createBill } from '../api';
-import { BillFormValues, UpdateBillProps } from './types';
+import { Bill, BillFormValues, UpdateBillProps } from './types';
 
 export const useBills = () => {
     const queryClient = useQueryClient();
@@ -9,16 +9,32 @@ export const useBills = () => {
         queryKey: ['bills'],
         queryFn: fetchBills,
         staleTime: 1000 * 60 * 5, // 5 minutes
-        enabled: true, // Set to false if you want to disable the query initially
-        // select: bills =>
-        //     bills.sort((a, b) => new Date(b.month).getTime() - new Date(a.month).getTime()),
-        // staleTime: 10000,
     });
 
     const updateMutation = useMutation({
         mutationFn: ({ id, data }: UpdateBillProps) => updateBill({ id, data }),
 
-        onSuccess: () => {
+        onMutate: async ({ id, data }) => {
+            await queryClient.cancelQueries({
+                queryKey: ['bills'],
+            });
+
+            const previousBills = queryClient.getQueryData<Bill[]>(['bills']);
+
+            queryClient.setQueryData<Bill[]>(['bills'], oldBills =>
+                oldBills?.map(bill => (bill.id === id ? { ...bill, ...data } : bill))
+            );
+
+            return { previousBills };
+        },
+
+        onError: (_error, _variables, context) => {
+            if (context?.previousBills) {
+                queryClient.setQueryData(['bills'], context.previousBills);
+            }
+        },
+
+        onSettled: () => {
             queryClient.invalidateQueries({
                 queryKey: ['bills'],
             });
@@ -38,7 +54,27 @@ export const useBills = () => {
     const deleteMutation = useMutation({
         mutationFn: (id: string) => deleteBill({ id }),
 
-        onSuccess: () => {
+        onMutate: async (id: string) => {
+            await queryClient.cancelQueries({
+                queryKey: ['bills'],
+            });
+
+            const previousBills = queryClient.getQueryData<Bill[]>(['bills']);
+
+            queryClient.setQueryData<Bill[]>(['bills'], oldBills =>
+                oldBills?.filter(bill => bill.id !== id)
+            );
+
+            return { previousBills };
+        },
+
+        onError: (_error, _variables, context) => {
+            if (context?.previousBills) {
+                queryClient.setQueryData(['bills'], context.previousBills);
+            }
+        },
+
+        onSettled: () => {
             queryClient.invalidateQueries({
                 queryKey: ['bills'],
             });
@@ -52,6 +88,7 @@ export const useBills = () => {
         updateBill: updateMutation.mutateAsync,
         deleteBill: deleteMutation.mutateAsync,
 
+        isAdding: addBill.isPending,
         isUpdating: updateMutation.isPending,
         isDeleting: deleteMutation.isPending,
     };

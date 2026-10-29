@@ -10,7 +10,6 @@ export const useTariffs = () => {
         queryKey: ['tariffs'],
         queryFn: getTariffs,
         staleTime: 1000 * 60 * 5, // 5 minutes
-        enabled: true,
     });
 
     const updateMutation = useMutation({
@@ -25,10 +24,7 @@ export const useTariffs = () => {
 
     return {
         ...tariffsQuery,
-
         updateTariff: updateMutation.mutateAsync,
-
-        // isUpdating: updateMutation.isPending,
-        // isDeleting: deleteMutation.isPending,
+        isUpdating: updateMutation.isPending,
     };
 };

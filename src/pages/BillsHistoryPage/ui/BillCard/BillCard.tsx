@@ -25,19 +25,17 @@ import { UpdateBillProps } from '@/features/manageBill/model/types';
 interface BillCardProps {
     bill: Bill;
     updateBill: (props: UpdateBillProps) => Promise<void>;
+    isUpdating: boolean;
     deleteBill: (id: string) => Promise<void>;
 }
 
 export const BillCard = (props: BillCardProps) => {
-    const { bill, updateBill, deleteBill } = props;
+    const { bill, updateBill, isUpdating, deleteBill } = props;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleUpdate = async ({ id, data }: UpdateBillProps) => {
         try {
-            updateBill({
-                id,
-                data,
-            });
+            await updateBill({ id, data });
             setIsDialogOpen(false);
         } catch (error) {
             console.error('Failed to update bill:', error);
@@ -114,6 +112,7 @@ export const BillCard = (props: BillCardProps) => {
                     month: bill.month,
                 }}
                 handleUpdate={handleUpdate}
+                isUpdating={isUpdating}
                 open={isDialogOpen}
                 onOpenChange={setIsDialogOpen}
             />
