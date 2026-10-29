@@ -3,3 +3,11 @@ export type TariffsType = {
     water: number;
     gas: number;
 };
+
+export type UpdateTariffsType = {
+    data: {
+        electricity: string;
+        water: string;
+        gas: string;
+    };
+};

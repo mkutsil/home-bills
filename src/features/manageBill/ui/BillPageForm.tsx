@@ -14,10 +14,12 @@ import { useBillForm } from '../model/useBillForm';
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
 import { useNavigate } from 'react-router-dom';
 import { BillFormValues } from '../model/types';
-import { createBill } from '../api';
+import { useBills } from '../model/useBills';
 
 export const BillPageForm = () => {
     const now = new Date();
+
+    const { addBill, isAdding } = useBills();
 
     const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     const { form } = useBillForm({
@@ -29,15 +31,13 @@ export const BillPageForm = () => {
     const navigate = useNavigate();
     async function onSubmit(submitData: BillFormValues) {
         try {
-            await createBill({ data: submitData });
+            await addBill(submitData);
+
             form.reset();
-
             toast.success('Saved successfully!');
-
             navigate(RoutePath.home, { replace: true });
         } catch (error) {
             console.error('Failed to update bill:', error);
-
             toast.error('Failed to save bill');
         }
     }
@@ -58,7 +58,7 @@ export const BillPageForm = () => {
                     <Button type="button" variant="outline" onClick={() => form.reset()}>
                         Reset
                     </Button>
-                    <Button type="submit" form="form-rhf-input">
+                    <Button type="submit" form="form-rhf-input" disabled={isAdding}>
                         Save
                     </Button>
                 </Field>

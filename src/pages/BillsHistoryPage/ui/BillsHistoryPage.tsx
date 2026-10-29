@@ -1,11 +1,21 @@
 import { BillsEmpty } from '@/widgets/BillsEmpty';
-import { useBills } from '@/features/manageBill/model/useBills';
+import { useBills } from '@/features/manageBill';
 import { Skeleton } from '@/components/ui/skeleton';
 import { BillCard } from './BillCard/BillCard';
+import { toast } from 'sonner';
 
 export const BillsHistoryPage = () => {
-    const { data: bills = [], isLoading, isError, updateBill, deleteBill } = useBills();
+    const { data: bills = [], isLoading, isError, updateBill, isUpdating, deleteBill } = useBills();
 
+    const handleDeleteBill = async (id: string) => {
+        try {
+            await deleteBill(id);
+            toast.success('Bill deleted successfully.');
+        } catch (error) {
+            console.error('Failed to delete bill:', error);
+            toast.error('Failed to delete bill.');
+        }
+    };
     if (isLoading) {
         return (
             <div className="flex gap-1.5 w-full flex-wrap justify-center">
@@ -16,7 +26,9 @@ export const BillsHistoryPage = () => {
         );
     }
 
-    if (bills.length === 0 || isError) {
+    if (isError) return <p>Error loading bills.</p>;
+
+    if (bills.length === 0) {
         return <BillsEmpty />;
     }
 
@@ -47,7 +59,12 @@ export const BillsHistoryPage = () => {
                     "
                             />
 
-                            <BillCard bill={bill} updateBill={updateBill} deleteBill={deleteBill} />
+                            <BillCard
+                                bill={bill}
+                                updateBill={updateBill}
+                                isUpdating={isUpdating}
+                                deleteBill={handleDeleteBill}
+                            />
                         </div>
                     </div>
                 );

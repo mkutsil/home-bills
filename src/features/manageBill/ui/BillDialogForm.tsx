@@ -13,10 +13,11 @@ import { Bill, BillFormValues, UpdateBillProps } from '../model/types';
 
 interface BillDialogFormProps {
     handleUpdate: (props: UpdateBillProps) => Promise<void>;
+    isUpdating: boolean;
     data: Omit<Bill, 'createdAt'>;
 }
 export const BillDialogForm = (props: BillDialogFormProps) => {
-    const { data, handleUpdate } = props;
+    const { data, handleUpdate, isUpdating } = props;
     const { form } = useBillForm({
         water: data.water.toString(),
         electricity: data.electricity.toString(),
@@ -58,8 +59,8 @@ export const BillDialogForm = (props: BillDialogFormProps) => {
                     <Button variant="outline">Cancel</Button>
                 </DialogClose>
 
-                <Button type="submit" form="form-rhf-input">
-                    Save changes
+                <Button type="submit" form="form-rhf-input" disabled={isUpdating}>
+                    {isUpdating ? 'Saving...' : 'Save changes'}
                 </Button>
             </DialogFooter>
         </>

@@ -1,23 +1,24 @@
 import { calculateBill } from '@/shared/lib/calculateBill';
 import { Recharts } from './Recharts';
 import { useBills } from '@/features/manageBill/model/useBills';
-import { useEffect, useState } from 'react';
-import { getTariffs } from '@/pages/Tariffs/api/getTariffs';
-import { TariffsType } from '@/pages/Tariffs/types/Tariffs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RechartsData } from '../model/types';
+import { useTariffs } from '@/pages/Tariffs';
 
 export const StatisticsPage = () => {
-    const { data: bills = [] } = useBills();
+    const { data: bills = [], isLoading: isBillsLoading, isError: isBillsError } = useBills();
+    const { data: tariffs, isLoading: isTariffsLoading, isError: isTariffsError } = useTariffs();
 
-    const [tariffs, setTariffs] = useState<TariffsType | null>(null);
-
-    useEffect(() => {
-        getTariffs().then(tariffs => setTariffs(tariffs));
-    }, []);
-
-    if (bills.length < 3 || !tariffs) {
+    if (isBillsLoading || isTariffsLoading) {
         return <Skeleton className="h-100 w-200 rounded-md" />;
+    }
+
+    if (isBillsError || isTariffsError || !tariffs) {
+        return <p>Error</p>;
+    }
+
+    if (bills.length < 3) {
+        return <p>Add at least three accounts for statistics.</p>;
     }
 
     const data: RechartsData = bills
