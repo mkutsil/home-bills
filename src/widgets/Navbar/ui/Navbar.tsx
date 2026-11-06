@@ -1,14 +1,11 @@
 import { Bell, House } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Link } from 'react-router-dom';
 import { RoutePath } from '@/shared/config/routeConfig/routerPath';
+import { AuthPanel } from '@/features/auth';
 
 export const Navbar = () => (
     <header className="flex justify-between items-center px-5 py-3 bg-accent">
         <div className="flex items-center gap-2">
-            {/* <div className="sm:hidden block">
-                <MobileSidebar />
-            </div> */}
             <Link to={RoutePath.home}>
                 <House />
             </Link>
@@ -19,15 +16,7 @@ export const Navbar = () => (
         </div>
         <div className="flex items-center gap-5">
             <Bell />
-
-            <Avatar>
-                <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                    className="grayscale"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <AuthPanel />
         </div>
     </header>
 );
