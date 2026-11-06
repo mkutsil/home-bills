@@ -11,36 +11,47 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { signOutUser } from '../api/signOutUser';
 import { signInWithGoogle } from '../api/signInWithGoogle';
-import { useState } from 'react';
+import { useAuthState } from '../model/useAuthState';
+import { Skeleton } from '@/components/ui/skeleton';
 export const AuthPanel = () => {
-    const [userState, setUserState] = useState<any>(null);
+    const { user, setUser, isLoading, setIsLoading } = useAuthState();
+
     const handleSignIn = async () => {
+        setIsLoading(true);
         try {
-            const user = await signInWithGoogle();
-            console.log('Signed in user:', user);
-            setUserState(user);
+            const userData = await signInWithGoogle();
+            setUser(userData);
         } catch (error) {
             console.error('Error signing in:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleSignOut = async () => {
+        setIsLoading(true);
         try {
             await signOutUser();
-            setUserState(null);
+            setUser(null);
         } catch (error) {
             console.error('Error signing out:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
+    if (isLoading) {
+        return <Skeleton className="h-8 w-8 rounded-full bg-white" />;
+    }
+
     return (
         <div>
-            {userState ? (
+            {user ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Avatar>
                             <AvatarImage
-                                src={userState?.photoURL}
+                                src={user?.photoURL || ''}
                                 alt="@shadcn"
                                 className="grayscale"
                             />
@@ -49,13 +60,13 @@ export const AuthPanel = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuGroup>
-                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                            <DropdownMenuItem>Profile</DropdownMenuItem>
-                            <DropdownMenuItem>Billing</DropdownMenuItem>
+                            <DropdownMenuLabel>
+                                {user?.displayName || 'My Account'}
+                            </DropdownMenuLabel>
+                            <DropdownMenuLabel>{user?.email || ''}</DropdownMenuLabel>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>Team</DropdownMenuItem>
                             <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
                         </DropdownMenuGroup>
                     </DropdownMenuContent>
