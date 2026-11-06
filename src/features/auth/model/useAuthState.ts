@@ -17,5 +17,5 @@ export const useAuthState = () => {
         return unsubscribe;
     }, []);
 
-    return { user, setUser, isLoading, setIsLoading };
+    return { user, isLoading };
 };

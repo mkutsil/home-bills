@@ -13,50 +13,55 @@ import { signOutUser } from '../api/signOutUser';
 import { signInWithGoogle } from '../api/signInWithGoogle';
 import { useAuthState } from '../model/useAuthState';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from 'react';
+
 export const AuthPanel = () => {
-    const { user, setUser, isLoading, setIsLoading } = useAuthState();
+    const [isProcessing, setIsProcessing] = useState(false);
+    const { user, isLoading } = useAuthState();
 
     const handleSignIn = async () => {
-        setIsLoading(true);
+        setIsProcessing(true);
         try {
-            const userData = await signInWithGoogle();
-            setUser(userData);
+            await signInWithGoogle();
         } catch (error) {
             console.error('Error signing in:', error);
         } finally {
-            setIsLoading(false);
+            setIsProcessing(false);
         }
     };
 
     const handleSignOut = async () => {
-        setIsLoading(true);
+        setIsProcessing(true);
         try {
             await signOutUser();
-            setUser(null);
         } catch (error) {
             console.error('Error signing out:', error);
         } finally {
-            setIsLoading(false);
+            setIsProcessing(false);
         }
     };
 
-    if (isLoading) {
+    if (isLoading || isProcessing) {
         return <Skeleton className="h-8 w-8 rounded-full bg-white" />;
     }
 
     return (
-        <div>
+        <div className="flex items-center justify-center">
             {user ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Avatar>
-                            <AvatarImage
-                                src={user?.photoURL || ''}
-                                alt="@shadcn"
-                                className="grayscale"
-                            />
-                            <AvatarFallback>?</AvatarFallback>
-                        </Avatar>
+                        <Button variant="ghost" size="icon" className="rounded-full">
+                            <Avatar>
+                                <AvatarImage
+                                    src={user?.photoURL || ''}
+                                    alt={user?.displayName || 'User Avatar'}
+                                    className="grayscale"
+                                />
+                                <AvatarFallback>
+                                    {user?.displayName?.charAt(0) || 'U'}
+                                </AvatarFallback>
+                            </Avatar>
+                        </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuGroup>
